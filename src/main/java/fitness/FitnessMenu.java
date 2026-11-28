@@ -25,6 +25,8 @@ public class FitnessMenu extends JFrame {
     private JButton historyButton; // our Workout history button
     private JButton returnButton; // back
     
+    public static FitnessManager manager = new FitnessManager(); // for "general" fitness manager
+    
     public FitnessMenu() { // our constructor
         
         setSize(500, 500);

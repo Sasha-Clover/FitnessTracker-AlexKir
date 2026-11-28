@@ -19,6 +19,7 @@ public class WorkoutHistory extends JFrame {
     private JPanel p;
     private JLabel titleLabel;
     private JTextArea workoutArea;
+    private JScrollPane scrollPane; // scrolling
     
     private JLabel searchLabel;
     private JTextField searchField;
@@ -60,6 +61,13 @@ public class WorkoutHistory extends JFrame {
     returnButton.setForeground(Color.BLACK);
     //---------------------------------------------------------
     workoutArea = new JTextArea();
+    
+    // Display the workouts
+    String result = FitnessMenu.manager.displayWorkouts();
+    workoutArea.setText(result);
+    
+    workoutArea.setEditable(false); // no editing workout area
+    scrollPane = new JScrollPane(workoutArea); // scrolling
     //---------------------------------------------------------
     titleLabel = new JLabel("Workout History");
     titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -74,7 +82,7 @@ public class WorkoutHistory extends JFrame {
     searchField.setBounds(150, 70, 250, 30);
 
     titleLabel.setBounds(175, 10, 200, 30);
-    workoutArea.setBounds(50, 120, 400, 220);
+    scrollPane.setBounds(50, 120, 400, 220);
     
     searchButton.setBounds(50, 360, 180, 40);
     deleteButton.setBounds(270, 360, 180, 40);
@@ -85,7 +93,7 @@ public class WorkoutHistory extends JFrame {
     p.add(searchField);
     
     p.add(titleLabel);
-    p.add(workoutArea);
+    p.add(scrollPane);
     
     p.add(searchButton);
     p.add(deleteButton);
