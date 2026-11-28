@@ -18,6 +18,7 @@ public class AddWorkout extends JFrame {
     
     private JPanel p; // panel
     private JLabel workoutTypeLabel;
+    private JLabel selectedTypeLabel;
     
     private JButton runningButton;
     private JButton gymButton;
@@ -29,13 +30,22 @@ public class AddWorkout extends JFrame {
 
     private JLabel durationLabel;
     private JTextField durationField;
+    
+    private JLabel intensityLabel;
+    private JComboBox<String> intensityBox;
+    
+    private JLabel distanceLabel;
+    private JTextField distanceField;
+    
     private JButton saveButton;
     
     private JButton returnButton; // back
     
+    private String selectedType = "";
+    
     public AddWorkout() {
         
-        setSize(500, 500);
+        setSize(500, 550);
         setLocation(10, 10);
 
         p = new JPanel();
@@ -45,6 +55,8 @@ public class AddWorkout extends JFrame {
  
         workoutTypeLabel = new JLabel("Workout Type:");
         workoutTypeLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        
+        selectedTypeLabel = new JLabel("Selected: None");
         
         //---------------------------------------------
         runningButton = new JButton("Running");
@@ -83,9 +95,18 @@ public class AddWorkout extends JFrame {
         durationLabel = new JLabel("Duration (min):");
         durationField = new JTextField();
         
+        intensityLabel = new JLabel("Intensity:");
+        String[] intensityOptions = {"Low", "Medium", "High"};
+        intensityBox = new JComboBox<String>(intensityOptions);
+        
+        distanceLabel = new JLabel("Distance (km):");
+        distanceField = new JTextField();
+        distanceField.setEnabled(false);
+        
         // configure our cordinates
         
         workoutTypeLabel.setBounds(175, 10, 200, 30);
+        selectedTypeLabel.setBounds(50, 185, 400, 30);
 
         runningButton.setBounds(50, 94, 180, 40);
         gymButton.setBounds(250, 94, 180, 40);
@@ -98,12 +119,19 @@ public class AddWorkout extends JFrame {
         durationLabel.setBounds(50, 260, 120, 30);
         durationField.setBounds(180, 260, 220, 30);
         
-        saveButton.setBounds(150, 320, 200, 40);
+        intensityLabel.setBounds(50, 300, 120, 30);
+        intensityBox.setBounds(180, 300, 220, 30);
         
-        returnButton.setBounds(150, 380, 200, 40);
+        distanceLabel.setBounds(50, 340, 120, 30);
+        distanceField.setBounds(180, 340, 220, 30);
+        
+        saveButton.setBounds(150, 390, 200, 40);
+        
+        returnButton.setBounds(150, 450, 200, 40);
         
         
         p.add(workoutTypeLabel);
+        p.add(selectedTypeLabel);
         
         p.add(runningButton);
         p.add(gymButton);
@@ -116,6 +144,12 @@ public class AddWorkout extends JFrame {
         p.add(durationLabel);
         p.add(durationField);
         
+        p.add(intensityLabel);
+        p.add(intensityBox);
+        
+        p.add(distanceLabel);
+        p.add(distanceField);
+        
         p.add(saveButton);
         
         p.add(returnButton);
@@ -126,6 +160,46 @@ public class AddWorkout extends JFrame {
           public void actionPerformed(ActionEvent event) {
              returnButtonActionPerformed(event);
         }
+
+     });
+        runningButton.addActionListener(new ActionListener() {
+
+          public void actionPerformed(ActionEvent event) {
+          selectedType = "Running";
+          selectedTypeLabel.setText("Selected: " + selectedType);
+          distanceField.setEnabled(true);
+        }
+
+     });
+        
+        gymButton.addActionListener(new ActionListener() {
+
+          public void actionPerformed(ActionEvent event) {
+          selectedType = "Gym";
+          selectedTypeLabel.setText("Selected: " + selectedType);
+          distanceField.setEnabled(false); // no need for GYM
+          distanceField.setText(""); // clear if not empty
+       }
+
+     });
+
+        cyclingButton.addActionListener(new ActionListener() {
+
+          public void actionPerformed(ActionEvent event) {
+          selectedType = "Cycling";
+          selectedTypeLabel.setText("Selected: " + selectedType);
+          distanceField.setEnabled(true);
+       }
+
+     });
+
+        swimmingButton.addActionListener(new ActionListener() {
+
+          public void actionPerformed(ActionEvent event) {
+          selectedType = "Swimming";
+          selectedTypeLabel.setText("Selected: " + selectedType);
+          distanceField.setEnabled(true);
+       }
 
      });
 
